@@ -1,0 +1,65 @@
+﻿<h1>Твой список дел, {{username}}</h1>
+
+
+<form>
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-search"></i>
+			</div>
+			<input type="text" class="form-control" placeholder="Искать"
+				ng-model="keyword">
+		</div>
+	</div>
+</form>
+
+<form>
+	<div class="form-group">
+		<div class="edit-group">
+			<label ng-repeat="item in items" class="checkbox-inline"><input
+				type="checkbox" ng-model="filterItems[item.name]">{{item.name}}
+			</label> <label class="checkbox-inline"><input type="checkbox"
+				ng-model="fullShow">Подробный вид</label>
+		</div>
+	</div>
+	</div>
+</form>
+
+
+
+<table class="table table-hover" style="vertical-align: middle;">
+	<thead>
+		<tr>
+			<th><a href=""
+				ng-click="orderByField='title'; reverseSort = !reverseSort">Название</a></th>
+			<th ng-show="fullShow"><a href=""
+				ng-click="orderByField='description'; reverseSort = !reverseSort">Описание</a></th>
+			<th><a href=""
+				ng-click="orderByField='date'; reverseSort = !reverseSort">Дата</a></th>
+			<th><a href=""
+				ng-click="orderByField='priority'; reverseSort = !reverseSort">Приоритет</a></th>
+			<th ng-show="fullShow"><a href=""
+				ng-click="orderByField='planned'; reverseSort = !reverseSort">По
+					плану</a></th>
+			<th ng-show="fullShow"><a href=""
+				ng-click="orderByField='estimated'; reverseSort = !reverseSort">Прошло</a></th>
+			<th><a href=""
+				ng-click="orderByField='status'; reverseSort = !reverseSort">Статус</a></th>
+		</tr>
+	</thead>
+	<tr
+		ng-repeat="x in tasks | filter:keyword | orderBy:orderByField:reverseSort | filter:testFilter"
+		data-ng-click="goto_detail(x.id)">
+		<td>{{ x.title }}</td>
+		<td ng-show="fullShow">{{ x.description }}</td>
+		<td>{{ x.date | date:'dd:MM:yy HH:mm'}}</td>
+		<td>{{ x.priority }}</td>
+		<td ng-show="fullShow">{{ x.planned | date:'HH:mm:ss'}}</td>
+		<td ng-show="fullShow">{{ x.estimated | date:'HH:mm:ss'}}</td>
+		<td>{{ x.status }}</td>
+	</tr>
+</table>
+
+<p>
+	<a href="#/login">Выйти</a></a>
+</p>
